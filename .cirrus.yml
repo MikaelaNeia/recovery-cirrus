@@ -26,3 +26,4 @@ task:
       - mka pbrp
       - up=out/target/product/agate/PBRP*.zip
       - curl --upload-file $up https://transfer.sh/$($up); echo
+
