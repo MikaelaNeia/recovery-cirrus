@@ -1,0 +1,28 @@
+task:
+    name: building recovery
+    timeout_in: 4h
+    container:
+      image: ubuntu:latest
+      cpu: 8
+      memory: 16G
+      volumes:
+          - /home/cirrus/roms:/home/cirrus/roms
+          - /home/cirrus/ccache:/home/cirrus/ccache
+          - /home/cirrus/.config:/home/cirrus/.config
+    run_script: # To sync source
+      - apt update && DEBIAN_FRONTEND="noninteractive" TZ="Asia/Jakarta" apt-get install -y tzdata curl git sudo
+      - bash <(curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh)
+      - git config --global user.name ""
+      - git config --global user.email ""
+      - mkdir linjetpbrp && cd linjetpbrp
+      - /usr/local/bin/repo init -u https://github.com/PitchBlackRecoveryProject/manifest_pb -b android-12.1 -g default,-device,-mips,-darwin,-notdefault && repo sync --force-sync
+      - git clone https://github.com/ImRyujinnn/recovery_device_xiaomi_agate -b pbrp device/xiaomi/agate
+      - export CCACHE_EXEC=$(which ccache)
+      - export USE_CCACHE=1
+      - ccache -M 50G
+      - ccache -z
+      - . build/envsetup.sh
+      - lunch omni_agate-eng
+      - mka pbrp
+      - up=out/target/product/agate/PBRP*.zip
+      - curl --upload-file $up https://transfer.sh/$($up); echo
