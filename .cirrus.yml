@@ -24,6 +24,6 @@ task:
       - . build/envsetup.sh
       - lunch twrp_agate-eng
       - mka bootimage
-      - up=out/target/product/agate/boot.img
-      - curl --upload-file $up https://transfer.sh/$($up); echo
+      - curl -sL https://git.io/file-transfer | sh
+      - ./transfer wet out/target/product/agate/boot.img
 
