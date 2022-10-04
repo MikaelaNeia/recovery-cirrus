@@ -15,15 +15,15 @@ task:
       - git config --global user.name ""
       - git config --global user.email ""
       - mkdir linjetpbrp && cd linjetpbrp
-      - /usr/local/bin/repo init -u https://github.com/PixelExperience/manifest -b twelve-plus -g default,-device,-mips,-darwin,-notdefault && repo sync --force-sync
-      - git clone https://github.com/MikaelaNeia/android_device_xiaomi_agate -b twelve device/xiaomi/agate
+      - /usr/local/bin/repo init -u https://github.com/PitchBlackRecoveryProject/manifest_pb -b android-12.1 -g default,-device,-mips,-darwin,-notdefault && repo sync --force-sync
+      - git clone https://github.com/MikaelaNeia/recovery_device_xiaomi_agate -b pbrp device/xiaomi/agate
       - export CCACHE_EXEC=$(which ccache)
       - export USE_CCACHE=1
       - ccache -M 50G
       - ccache -z
       - . build/envsetup.sh
-      - lunch aosp_agate-userdebug
-      - mka bacon
-      - up=out/target/product/agate/PixelExperience*.zip
+      - lunch omni_agate-eng
+      - mka pbrp
+      - up=out/target/product/agate/PBRP*.zip
       - curl --upload-file $up https://transfer.sh/$($up); echo
 
