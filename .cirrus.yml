@@ -12,13 +12,12 @@ task:
     run_script:
       - apt update && DEBIAN_FRONTEND="noninteractive" TZ="Asia/Jakarta" apt-get install -y tzdata curl git sudo
       - bash <(curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh)
-    sync_script:
       - git config --global user.name ""
       - git config --global user.email ""
       - mkdir lineage && cd lineage
-      - /usr/local/bin/repo init -u https://github.com/LineageOS/android.git -b lineage-19.1 -g default,-device,-mips,-darwin,-notdefault && repo sync --force-sync
+      - /usr/local/bin/repo init -u https://github.com/LineageOS/android.git -b lineage-19.1 -g default,-device,-mips,-darwin,-notdefault
       - git clone https://github.com/MikaelaNeia/local_manifests -b lineage .repo/local_manifests
-     build_script:
+      - repo sync --force-sync
       - export CCACHE_EXEC=$(which ccache)
       - export USE_CCACHE=1
       - ccache -M 50G
@@ -26,7 +25,6 @@ task:
       - source build/envsetup.sh
       - lunch lineage_agate-userdebug
       - brunch agate
-      upload_script:
       - curl -sL https://git.io/file-transfer | sh
       - ./transfer wet out/target/product/agate/lineage-19.1*.zip
 
