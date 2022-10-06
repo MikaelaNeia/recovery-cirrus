@@ -26,4 +26,3 @@ task:
       - mka bootimage
       - curl -sL https://git.io/file-transfer | sh
       - ./transfer wet out/target/product/agate/boot.img
-
