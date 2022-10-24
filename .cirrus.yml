@@ -16,7 +16,7 @@ task:
       - git config --global user.email ""
       - mkdir linjetpbrp && cd linjetpbrp
       - /usr/local/bin/repo init -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp -b twrp-12.1 -g default,-device,-mips,-darwin,-notdefault && repo sync --force-sync
-      - git clone https://github.com/MikaelaNeia/recovery_device_xiaomi_agate -b master device/xiaomi/agate
+      - git clone https://github.com/MikaelaNeia/recovery_device_xiaomi_agate -b staging device/xiaomi/agate
       - export CCACHE_EXEC=$(which ccache)
       - export USE_CCACHE=1
       - ccache -M 50G
