@@ -1,5 +1,5 @@
 task:
-    name: building recovery
+    name: building rom
     timeout_in: 4h
     container:
       image: ubuntu:latest
@@ -14,16 +14,18 @@ task:
       - bash <(curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh)
       - git config --global user.name ""
       - git config --global user.email ""
-      - mkdir linjetpbrp && cd linjetpbrp
-      - /usr/local/bin/repo init -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp -b twrp-12.1 -g default,-device,-mips,-darwin,-notdefault && repo sync --force-sync
-      - git clone https://github.com/MikaelaNeia/recovery_device_xiaomi_agate -b staging device/xiaomi/agate
+      - mkdir rom && cd rom
+      - /usr/local/bin/repo init -u https://github.com/LineageOS/android.git -b lineage-19.1 -g default,-device,-mips,-darwin,-notdefault
+      - repo sync --force-sync
+      - git clone https://github.com/MikaelaNeia/android_device_xiaomi_agate -b lineage-19.1 device/xiaomi/agate
+      - git clone https://github.com/MikaelaNeia/proprietary_vendor_xiaomi -b twelve
       - export CCACHE_EXEC=$(which ccache)
       - export USE_CCACHE=1
       - ccache -M 50G
       - ccache -z
       - . build/envsetup.sh
-      - lunch twrp_agate-eng
-      - mka bootimage
+      - lunch lineage_agate-userdebug
+      - brunch
       - curl -sL https://git.io/file-transfer | sh
       - ./transfer wet out/target/product/agate/boot.img
 
