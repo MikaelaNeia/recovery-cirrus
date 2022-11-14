@@ -27,5 +27,4 @@ task:
       - lunch lineage_agate-userdebug
       - brunch agate
       - curl -sL https://git.io/file-transfer | sh
-      - ./transfer wet out/target/product/agate/boot.img
-
+      - ./transfer wet out/target/product/agate/lineage*.zip
