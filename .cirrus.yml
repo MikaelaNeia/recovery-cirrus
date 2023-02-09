@@ -14,7 +14,7 @@ task:
       - bash <(curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh)
       - git config --global user.name ""
       - git config --global user.email ""
-      - mkdir rom && cd rom
+      - mkdir twrp && cd twrp
       - /usr/local/bin/repo init -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-12.1 -g default,-device,-mips,-darwin,-notdefault
       - repo sync --force-sync
       - git clone https://github.com/MikaelaNeia/recovery_device_xiaomi_agate -b staging device/xiaomi/agate
