@@ -26,4 +26,4 @@ task:
       - lunch twrp_agate-eng
       - mka bootimage
       - curl -sL https://git.io/file-transfer | sh
-      - ./transfer wet out/target/product/RM6785/recovery.img
+      - ./transfer wet out/target/product/agate/boot.img
